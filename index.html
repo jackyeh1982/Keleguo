@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- 滿版 Viewport 設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title> ----- ----- </title>
+
+<!-- 不保存瀏覽器快取 (No Cache) 標籤 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- 滿版 CSS 重置與美化樣式設定 -->
+<style>
+    /* 全局邊距歸零與盒模型設定 */
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden; /* 防止水平方向出現滾動條 */
+        background-color: #f4f6f9;
+        color: #2c3e50;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.6;
+    }
+
+    header, main, footer {
+        width: 100%; /* 確保寬度貼齊螢幕兩側 */
+    }
+
+    header {
+        background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+        color: #ffffff;
+        padding: 24px 16px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    /* 針對手機瀏覽設計的左右滿版主體區域 */
+    main {
+        flex: 1;
+        padding: 0; /* 移除左右邊距讓表格徹底滿版貼齊螢幕邊緣 */
+        width: 100%;
+    }
+
+    /* 滿版表格容器設定 */
+    .table-container {
+        width: 100%;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* 強制平均分配三欄寬度 */
+    }
+
+    td {
+        border: 1px solid #e2e8f0;
+        padding: 4px;
+        text-align: center;
+        vertical-align: middle;
+        width: 33.333%; /* 確保三欄均分螢幕 */
+    }
+
+    tr:nth-child(even) {
+        background-color: #fdfdfe;
+    }
+
+    /* 表格內圖片撐滿儲存格並維持比例或滿版填滿 */
+    .table-img {
+        width: 100%;
+        height: auto; /* 自動保持圖片比例，或可設為固定高度如 height: 110px; object-fit: cover; */
+        display: block;
+        border-radius: 4px;
+    }
+
+    footer {
+        background-color: #1e293b;
+        color: #94a3b8;
+        padding: 16px;
+        text-align: center;
+        font-size: 0.875rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+</style>
+</head>
+<body>
+
+   <header>
+    <h1>Im 可樂果</h1>
+</header>
+
+<main>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <!-- 第 1 列 -->
+                <tr>
+                    <td><img src="png/01.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/02.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/03.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 2 列 -->
+                <tr>
+                    <td><img src="png/04.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/05.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/03.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 3 列 -->
+                <tr>
+                    <td><img src="png/07.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/08.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/09.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 4 列 -->
+                <tr>
+                    <td><img src="png/10.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/11.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/12.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 5 列 -->
+                <tr>
+                    <td><img src="png/13.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/14.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/15.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 6 列 -->
+                <tr>
+                    <td><img src="png/16.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/17.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/18.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 7 列 -->
+                <tr>
+                    <td><img src="png/19.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/20.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/21.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 8 列 -->
+                <tr>
+                    <td><img src="png/22.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/23.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/24.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 9 列 -->
+                <tr>
+                    <td><img src="png/25.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/26.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/27.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 10 列 -->
+                <tr>
+                    <td><img src="png/28.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/29.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/30.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 11 列 -->
+                <tr>
+                    <td><img src="png/31.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/32.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/33.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 12 列 -->
+                <tr>
+                    <td><img src="png/34.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/35.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/36.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 13 列 -->
+                <tr>
+                    <td><img src="png/37.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/38.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/39.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 14 列 -->
+                <tr>
+                    <td><img src="png/40.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/06.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/06.png" alt="圖片3" class="table-img"></td>
+                </tr>
+                <!-- 第 15 列 -->
+                <tr>
+                    <td><img src="png/06.png" alt="圖片1" class="table-img"></td>
+                    <td><img src="png/06.png" alt="圖片2" class="table-img"></td>
+                    <td><img src="png/06.png" alt="圖片3" class="table-img"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 犀利貓. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
