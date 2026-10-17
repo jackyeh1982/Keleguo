@@ -1,213 +1,636 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+
     <meta charset="UTF-8">
-    <!-- 滿版 Viewport 設定 -->
+    <!-- 1. 滿版 Viewport 設定 (包含 viewport-fit=cover) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title> ----- ----- </title>
+    <title> Im 可樂果 </title>
 
-<!-- 不保存瀏覽器快取 (No Cache) 標籤 -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+    <!-- 2. 不保存瀏覽器快取 (No Cache) 標籤 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
-<!-- 滿版 CSS 重置與美化樣式設定 -->
-<style>
-    /* 全局邊距歸零與盒模型設定 */
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    <!-- 3. Favicon 與圖示設定 -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="png/logo.png">
 
-    html, body {
-        width: 100%;
-        min-height: 100vh;
-        overflow-x: hidden; /* 防止水平方向出現滾動條 */
-        background-color: #f4f6f9;
-        color: #2c3e50;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        line-height: 1.6;
-    }
+    <!-- 4. PWA (Progressive Web App) 設定標籤 -->
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="應用程式名稱">
 
-    header, main, footer {
-        width: 100%; /* 確保寬度貼齊螢幕兩側 */
-    }
+    <!-- 5. 瀏覽器/社群預覽簡介與圖片標籤 (Open Graph / Twitter Cards) -->
+    <meta name="description" content="這裡填寫網頁的簡短描述，會顯示在搜尋引擎結果頁面中。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.example.com/page.html">
+    <meta property="og:title" content="頁面標題 - 分享時顯示的標題">
+    <meta property="og:description" content="這裡是分享到社群軟體或通訊軟體時顯示的預覽簡介內容。">
+    <meta property="og:image" content="png/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.example.com/page.html">
+    <meta name="twitter:title" content="頁面標題 - 分享時顯示的標題">
+    <meta name="twitter:description" content="這裡是分享到 Twitter/X 時顯示的預覽簡介內容。">
+    <meta name="twitter:image" content="png/logo.png">
 
-    header {
-        background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-        color: #ffffff;
-        padding: 24px 16px;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="/07.png">
 
-    header h1 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/fontAwesome.css">
+        <link rel="stylesheet" href="css/light-box.css">
+        <link rel="stylesheet" href="css/templatemo-main.css">
 
-    /* 針對手機瀏覽設計的左右滿版主體區域 */
-    main {
-        flex: 1;
-        padding: 0; /* 移除左右邊距讓表格徹底滿版貼齊螢幕邊緣 */
-        width: 100%;
-    }
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
-    /* 滿版表格容器設定 */
-    .table-container {
-        width: 100%;
-        background: #ffffff;
-        overflow: hidden;
-    }
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed; /* 強制平均分配三欄寬度 */
-    }
-
-    td {
-        border: 1px solid #e2e8f0;
-        padding: 4px;
-        text-align: center;
-        vertical-align: middle;
-        width: 33.333%; /* 確保三欄均分螢幕 */
-    }
-
-    tr:nth-child(even) {
-        background-color: #fdfdfe;
-    }
-
-    /* 表格內圖片撐滿儲存格並維持比例或滿版填滿 */
-    .table-img {
-        width: 100%;
-        height: auto; /* 自動保持圖片比例，或可設為固定高度如 height: 110px; object-fit: cover; */
-        display: block;
-        border-radius: 4px;
-    }
-
-    footer {
-        background-color: #1e293b;
-        color: #94a3b8;
-        padding: 16px;
-        text-align: center;
-        font-size: 0.875rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-</style>
-</head>
 <body>
-
-   <header>
-    <h1>Im 可樂果</h1>
-</header>
-
-<main>
-    <div class="table-container">
-        <table>
-            <tbody>
-                <!-- 第 1 列 -->
-                <tr>
-                    <td><img src="png/01.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/02.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/03.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 2 列 -->
-                <tr>
-                    <td><img src="png/04.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/05.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/03.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 3 列 -->
-                <tr>
-                    <td><img src="png/07.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/08.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/09.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 4 列 -->
-                <tr>
-                    <td><img src="png/10.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/11.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/12.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 5 列 -->
-                <tr>
-                    <td><img src="png/13.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/14.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/15.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 6 列 -->
-                <tr>
-                    <td><img src="png/16.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/17.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/18.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 7 列 -->
-                <tr>
-                    <td><img src="png/19.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/20.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/21.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 8 列 -->
-                <tr>
-                    <td><img src="png/22.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/23.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/24.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 9 列 -->
-                <tr>
-                    <td><img src="png/25.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/26.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/27.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 10 列 -->
-                <tr>
-                    <td><img src="png/28.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/29.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/30.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 11 列 -->
-                <tr>
-                    <td><img src="png/31.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/32.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/33.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 12 列 -->
-                <tr>
-                    <td><img src="png/34.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/35.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/36.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 13 列 -->
-                <tr>
-                    <td><img src="png/37.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/38.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/39.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 14 列 -->
-                <tr>
-                    <td><img src="png/40.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/06.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/06.png" alt="圖片3" class="table-img"></td>
-                </tr>
-                <!-- 第 15 列 -->
-                <tr>
-                    <td><img src="png/06.png" alt="圖片1" class="table-img"></td>
-                    <td><img src="png/06.png" alt="圖片2" class="table-img"></td>
-                    <td><img src="png/06.png" alt="圖片3" class="table-img"></td>
-                </tr>
-            </tbody>
-        </table>
+    
+    <div class="sequence">
+  
+      <div class="seq-preloader">
+        <svg width="39" height="16" viewBox="0 0 39 16" xmlns="http://www.w3.org/2000/svg" class="seq-preload-indicator"><g fill="#F96D38"><path class="seq-preload-circle seq-preload-circle-1" d="M3.999 12.012c2.209 0 3.999-1.791 3.999-3.999s-1.79-3.999-3.999-3.999-3.999 1.791-3.999 3.999 1.79 3.999 3.999 3.999z"/><path class="seq-preload-circle seq-preload-circle-2" d="M15.996 13.468c3.018 0 5.465-2.447 5.465-5.466 0-3.018-2.447-5.465-5.465-5.465-3.019 0-5.466 2.447-5.466 5.465 0 3.019 2.447 5.466 5.466 5.466z"/><path class="seq-preload-circle seq-preload-circle-3" d="M31.322 15.334c4.049 0 7.332-3.282 7.332-7.332 0-4.049-3.282-7.332-7.332-7.332s-7.332 3.283-7.332 7.332c0 4.05 3.283 7.332 7.332 7.332z"/></g></svg>
+      </div>
+      
     </div>
-</main>
+    
+  
+        <nav>
+          <div class="logo">
+              <img src="png/logo.png" alt="">
+          </div>
+          <div class="mini-logo">
+              <img src="png/logo.png" alt="">
+          </div>
+          <ul>
+            <li><a href="#1"><i class="fa fa-home"></i> <em>Home</em></a></li>
+            <li><a href="#2"><i class="fa fa-user"></i> <em>About</em></a></li>
+<!-----            <li><a href="#3"><i class="fa fa-pencil"></i> <em>Entries</em></a></li>            ----->
+            <li><a href="#4"><i class="fa fa-image"></i> <em>Work</em></a></li>
+<!-----            <li><a href="#5"><i class="fa fa-envelope"></i> <em>Contact</em></a></li>            ----->
+          </ul>
+        </nav>
+        
+        <div class="slides">
+          <div class="slide" id="1">
+            <div class="content first-content">
+              <div class="container-fluid">
+                  <div class="col-md-3">
+                      <div class="author-image"><img src="png/23.png" alt="Author Image"></div>
+                  </div>
+                  <div class="col-md-9">
+                      <h2>可樂果</h2>
+                      <p>脾氣很差的可樂果.</p>
 
-<footer>
-    <p>&copy; 2026 犀利貓. All rights reserved.</p>
-</footer>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide" id="2">
+            <div class="content second-content">
+                <div class="container-fluid">
+                    <div class="col-md-6">
+                        <div class="left-content">
+                            <h2>小檔案</h2>
+                            <p>.</p> 
+                            <p>.</p>
+                            <p>.</p>
+                            <p>.</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="right-image">
+                          <img src="png/01.jpg" alt="">
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="slide" id="3">
+            <div class="content third-content">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="first-section">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="left-content">
+                                                <h2>Quisque commodo quam</h2>
+                                                <p>Vestibulum augue ex, finibus sit amet nisi id, maximus ultrices ipsum. Maecenas rhoncus nibh in mauris lobortis, a maximus diam faucibus. In et eros urna. Suspendisse potenti. Pellentesque commodo, neque nec molestie tempus, purus ante feugiat augue.</p>
+                                                <div class="main-btn"><a href="#4">Continue Reading</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="img/first_service.jpg" alt="first service">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="second-section">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="left-image">
+                                                <img src="img/second_service.jpg" alt="second service">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-content">
+                                                <h2>Maecenas eu purus eu sapien</h2>
+                                                <p>Sed vitae felis in lorem mollis mollis eget in leo. Donec commodo, ex nec rutrum venenatis, nisi nisl malesuada magna, sed semper ipsum enim a ipsum. Aenean in ante vel mi molestie bibendum. Quisque sit amet lacus in diam pretium faucibus. Cras vel justo lorem.</p>
+                                                <div class="main-btn"><a href="#4">Continue Reading</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="slide" id="4">
+            <div class="content fourth-content">
+                <div class="container-fluid">
+                    <div class="row">
 
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/01.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/01.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/02.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/02.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/03.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/03.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/04.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/04.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/05.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/05.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/07.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/07.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/08.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/08.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/09.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/09.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/10.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/10.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/11.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/11.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/12.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/12.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/13.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/13.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/15.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/15.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/16.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/16.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/17.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/17.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/18.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/18.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/19.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/19.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/20.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/20.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/21.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/21.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/22.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/22.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/23.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/23.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/24.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/24.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/25.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/25.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/26.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/26.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/27.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/27.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/28.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/28.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/30.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/30.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/31.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/31.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/32.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/32.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/33.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/33.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/35.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/35.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/36.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/36.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/37.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/37.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/38.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/38.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/39.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/39.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="item">
+                                <div class="thumb">
+                                    <a href="png/40.png" data-lightbox="image-1"></a>
+                                    <div class="image">
+                                        <img src="png/40.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="slide" id="5">
+            <div class="content fifth-content">
+                <div class="container-fluid">
+                    <div class="col-md-6">
+                        <div id="map">
+    <!-- How to change your own map point
+            1. Go to Google Maps
+            2. Click on your location point
+            3. Click "Share" and choose "Embed map" tab
+            4. Copy only URL and paste it within the src="" field below
+	-->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <fieldset>
+                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                  <fieldset>
+                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
+                                  </fieldset>
+                                </div>
+                                 <div class="col-md-12">
+                                  <fieldset>
+                                    <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject..." required="">
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                  <fieldset>
+                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                  <fieldset>
+                                    <button type="submit" id="form-submit" class="btn">Send Now</button>
+                                  </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+    
+    <script src="js/datepicker.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        
+
+        // navigation click actions 
+        $('.scroll-link').on('click', function(event){
+            event.preventDefault();
+            var sectionID = $(this).attr("data-id");
+            scrollToID('#' + sectionID, 750);
+        });
+        // scroll to top action
+        $('.scroll-top').on('click', function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop:0}, 'slow');         
+        });
+        // mobile nav toggle
+        $('#nav-toggle').on('click', function (event) {
+            event.preventDefault();
+            $('#main-nav').toggleClass("open");
+        });
+    });
+    // scroll function
+    function scrollToID(id, speed){
+        var offSet = 0;
+        var targetOffset = $(id).offset().top - offSet;
+        var mainNav = $('#main-nav');
+        $('html,body').animate({scrollTop:targetOffset}, speed);
+        if (mainNav.hasClass("open")) {
+            mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+            mainNav.removeClass("open");
+        }
+    }
+    if (typeof console === "undefined") {
+        console = {
+            log: function() { }
+        };
+    }
+    </script>
 </body>
 </html>
